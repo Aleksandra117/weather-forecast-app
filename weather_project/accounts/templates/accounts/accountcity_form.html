@@ -1,0 +1,13 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="container">
+  <h1>Enter city</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p  }}
+    <input class="button" type="submit" value="Add">
+  </form>
+</div>
+{% endblock %}

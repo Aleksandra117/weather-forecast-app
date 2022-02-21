@@ -1,0 +1,59 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+{% if cities %}
+<h5 id="greet">Hello {{request.user.username}}, this is your forecast!</h5>
+
+<div class="container">
+  <div class="row">
+    {% for city in cities %}
+
+    {% if not city.message %}
+    <div class="cards col-md-4">
+      <div class="card border-info mb-3 w-75" style="max-width: 19rem;">
+        <div class="card-header">
+          {{ city.city}}, {{ city.country }}
+          <img id='icon'
+            src="http://api.openweathermap.org/img/w/{{ city.icon }}.png"
+            alt="Img">
+        </div>
+        <div class="card-body text-secondary">
+          <h5 class="card-title">{{ city.description }}</h5>
+          <p class="card-text">Temperature: {{ city.temperature }} &#8451</p>
+          <p class="card-text">Wind: {{ city.wind }} m/s</p>
+          <p class="card-text">Pressure: {{ city.pressure }} hPa</p>
+          <p class="card-text">Humidity: {{ city.humidity }} %</p>
+        </div>
+        <div class="task-controls">
+          <a id="x-sign" class="delete-link"
+            href="{% url 'accounts:delete' city.cities_objects.id %}">&#10006;</a>
+        </div>
+      </div>
+    </div>
+
+    {% else %}
+    <div class="cards col-md-4">
+      <div class="card border-secondary mb-3 w-75" style="max-width: 19rem;">
+        <div class="card-header">
+          {{ city.city}}
+        </div>
+        <div class="card-body text-secondary">
+          <p class="card-text">{{ city.message }}</p>
+        </div>
+        <div class="task-controls">
+          <a class="delete-link"
+            href="{% url 'accounts:delete' city.cities_objects.id %}">&#215;</a>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% else %}
+<h2>It looks like you don't have any choosen cities :(</h2>
+<h3>Add them now: <a href="{% url 'accounts:create' %}">Add city</a></h3>
+
+{% endif %}
+{% endblock %}

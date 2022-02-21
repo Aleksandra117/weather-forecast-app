@@ -1,0 +1,12 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="container">
+  <form method="POST">
+    {% csrf_token %}
+    <h4>Confirm deleting city: {{ city.city_name }}</h4>
+    <input class="button" type="submit" value="Delete">
+  </form>
+</div>
+{% endblock %}

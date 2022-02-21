@@ -1,0 +1,48 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<form method="GET">
+  <h1></h1>
+  <div class="input-group mb-3 col-md-8">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroup-sizing-default">City</span>
+    </div>
+    <input id="search-bar" type="text" class="form-control"
+      aria-label="Sizing example input"
+      aria-describedby="inputGroup-sizing-default" name="search-area"
+      value="{{ search_input }}">
+    <div class="input-group-append">
+      <input class="btn btn-outline-secondary" type="submit" id="button-addon2"
+        value="Search">
+    </div>
+  </div>
+</form>
+{% if error_message %}
+
+<div class="alert alert-danger" role="alert">
+  Error: {{ error_message.message }}
+</div>
+
+{% endif %}
+
+
+{% if data.city %}
+<div class="cards col-sm-8">
+  <div class="card border-info mb-3" style="max-width: 18rem;">
+    <div class="card-header">
+      {{ data.city }}, {{ data.country }}
+      <img id='icon'
+        src="http://api.openweathermap.org/img/w/{{ data.icon }}.png" alt="Img">
+    </div>
+    <div class="card-body text-secondary">
+      <h5 class="card-title">{{ data.description }}</h5>
+      <p class="card-text">Temperature: {{ data.temperature }} &#8451</p>
+      <p class="card-text">Wind: {{ data.wind }} m/s</p>
+      <p class="card-text">Pressure: {{ data.pressure }} hPa</p>
+      <p class="card-text">Humidity: {{ data.humidity }} %</p>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}
